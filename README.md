@@ -7,9 +7,8 @@ Info on how to use it https://www.tutorialspoint.com/sqlite/sqlite_create_databa
 # Database structure:
 
 Columns:
-Exercise name - The exercise should have an easy to identify name 
-
-Description text - should describe the exercise
+- Exercise name - The exercise should have an easy to identify name 
+- Description text - should describe the exercise
 
 Description link - Link to picture or video
 
