@@ -1,5 +1,6 @@
 # Training Generator
 
+WORK IN PROGRESS
 Database with different exercises
 sqlite3 Database is used
 Info on how to use it https://www.tutorialspoint.com/sqlite/sqlite_create_database.htm
