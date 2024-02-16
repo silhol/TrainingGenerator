@@ -18,16 +18,26 @@ Columns:
 - Amount of persons - 1,2,3,4,5,6,7,8 or more
 - Not suitable for - knees, back, breast, hip, neck, ankle
 - Duratation - x minutes
+- Backup field - just in case I need later another element in the database
  
+# Main UI
+User selects task (after that he is returned to here):
+- Do you want to add an exercise?
+- Do you want to create a training plan?
+- Modify an existing training plan?
+- Do you want to view all the exercises in the database?
+- Do you want to edit/remove an exercise?
 
-# Intended usage:
+# Crate training plan function (after "want to create a training plan")
+#
 User choose from dropdown menu:
-- age, type, body part, equipment need, amount of persons, not suitable for
+age, type, body part, equipment need, amount of persons, not suitable for
 This is repeated till he says "enough exercises" (age is cached)
-
 Outcome: Training plan, sorting for warming up, main training, in-between games, flexing
 
-# Additional planned features
-- Adding of exercises
+# Planned functions
+- Adding of new exercises
 - Modification of entries in the database
+- Listing of all exercises in the database in a readable format
 - Modification of received trainings plan
+
