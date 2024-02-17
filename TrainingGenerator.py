@@ -15,8 +15,9 @@
 # 8. Amount of persons - 1,2,3,4,5,6,7,8 or more
 # 9. Not suitable for - knees, back, breast, hip, neck, ankle
 # 10. Duration - x minutes
-# 11. Comments - optional free text
-# 12. Backup - just in case I need a field more
+# 11. Variants - Variants of the exercise (e.g., backwards, sidewards etc.) 
+# 12. Comments - optional free text
+# 13. Backup - just in case I need a field more
 
 # Main UI
 # User selects task (after that he is returned to here):
@@ -58,8 +59,9 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
 
     # Create a function to store the sentences in an array
     def store_exercise_elements(cursor_intern, entry1_int, entry2_int, entry3_int, entry4_int, entry5_int, entry6_int,
-                                entry7_int, entry8_int, entry9_int, entry10_int, entry11_int, entry12_int,
-                                skill_level_details_int, training_type_details_int):
+                                entry7_int, entry8_int, entry9_int, entry10_int, entry11_int, entry12_int, 
+                                element13_int, skill_level_details_int, training_type_details_int):
+
         element1 = entry1_int.get()  # 1. Exercise Name
         element2 = entry2_int.get()  # 2. Exercise Description
         element3 = entry3_int.get()  # 3. Exercise Link
@@ -72,7 +74,7 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         selected_type_of_training = [training_type for training_type, j in training_type_details_int.items() if j.get()]
         element5 = ", ".join(selected_type_of_training)  # Join selected training types
 
-        ########CHECK BELOW WHICH GET NORMAL TEXT!!
+        # CHECK BELOW WHICH GET NORMAL TEXT!!
 
         element6 = entry6_int.get()
         element7 = entry7_int.get()
@@ -81,12 +83,13 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
 
         #####################
         element10 = entry10_int.get()  # 10. Duration - x minutes
-        element11 = entry11_int.get()  # Comments
-        element12 = "Backup field"
-        # element12 = entry12.get()  # Backup field can be used if the DB needs one column more
+        element11 = entry11_int.get()  # 11. Variations
+        element12 = entry12_int.get()  # 12. Comments
+        element13 = "Backup field"
+        # element13 = entry12.get()  # Backup field can be used if the DB needs one column more
 
         new_exercise.append((element1, element2, element3, element4, element5, element6, element7,
-                             element8, element9, element10, element11, element12))
+                             element8, element9, element10, element11, element12, element13))
 
         # Cleaning of input fields
         entry1_int.delete(0, 'end')  # Clear the input fields for text input 1. Exercise Name
@@ -105,8 +108,8 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         # Store exercise elements in the database
         for exercise in new_exercise:
             cursor_intern.execute("INSERT INTO tbl1 (name, description, link, skill_level, training_type, body_part, "
-                                  "equipment, num_persons, not_suitable, duration, comments, backup) VALUES (?, ?, ?, "
-                                  "?, ?, ?, ?, ?, ?, ?, ?, ?)", exercise)
+                                  "equipment, num_persons, not_suitable, duration, variations, comments, backup) VALUES "
+                                  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)", exercise)
 
         conn.commit()  # Commit the changes to the database
 
@@ -148,15 +151,19 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         # 7. Equipment needed - 1 soft-ball, several soft-balls, bean bags, pistarit, tennis balls, stretching band
         label7 = tk.Label(root, text="What kind of equipment do you need (select from menu):")
         # 8. Amount of persons - 1,2,3,4,5,6,7,8 or more
-        label8 = tk.Label(root, text="How many persons are needed at least to perform this exercise (select from menu):")
+        label8 = tk.Label(root, text="How many persons are needed at least to perform this exercise (select from "
+                                     "menu):")
         # 9. Not suitable for - knees, back, breast, hip, neck, ankle
         label9 = tk.Label(root, text="For what / whom is this exercise NOT suitable (select from menu):")
         # 10. Duration - x minutes
-        label10 = tk.Label(root, text="How long will the exercise take (optional, if you do not know just press return):")
-        # 11. Comments - optional free text
-        label11 = tk.Label(root, text="Comments:")
-        # 12. Backup - just in case I need a field more
-        label12 = tk.Label(root, text="Backup:")
+        label10 = tk.Label(root, text="How long will the exercise take (optional, if you do not know just press "
+                                      "return):")
+        # 11. Variations - optional free text
+        label11 = tk.Label(root, text="Variations:")
+        # 12. Comments - optional free text
+        label12 = tk.Label(root, text="Comments:")
+        # 13. Backup - just in case I need a field more
+        label13 = tk.Label(root, text="Backup:")
 
         entry1 = tk.Entry(root)
         entry2 = tk.Entry(root)
@@ -170,6 +177,7 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         entry10 = tk.Entry(root)
         entry11 = tk.Entry(root)
         entry12 = tk.Entry(root)
+        entry13 = tk.Entry(root)
 
         label1.pack()
         entry1.pack()
@@ -229,18 +237,20 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         entry11.pack()
         label12.pack()
         entry12.pack()
+        label13.pack()
+        entry13.pack()
 
         # Create a "Done" button to store the exercise elements
         done_button = tk.Button(root, text="Done", command=store_exercise_elements(cursor_intern, entry1, entry2,
                                                                                    entry3, entry4, entry5, entry6,
                                                                                    entry7, entry8, entry9, entry10,
-                                                                                   entry11, entry12,
+                                                                                   entry11, entry12, entry13,
                                                                                    skill_level_details,
                                                                                    training_type_details))
         done_button.pack()
 
         # Create a "View Exercises" button to open the pop-up window
-        view_button = tk.Button(root, text="View Exercises", command=create_popup_for_viewing_exercise())
+        view_button = tk.Button(root, text="View Exercises", command=create_popup_for_viewing_exercise)
         view_button.pack(pady=5)
 
         # Create an array to store the exercise elements
@@ -259,7 +269,6 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         # Create a "Done" button to store the sentences
         # done_button = tk.Button(root, text="Done", command=store_exercise_elements)
         # done_button.pack()
-
 
         # Create a "Stop" button to stop insertion
         # stop_button = tk.Button(root, text="Stop", command=stop_insertion)
@@ -280,8 +289,8 @@ def search_and_display(cursor):
     #        print(f"No contact found with the name: {name}")
 
     # Search for a contact by name
-    #search_name = input("Enter the name to search: ")
-    #search_contact_by_name(search_name)
+    # search_name = input("Enter the name to search: ")
+    # search_contact_by_name(search_name)
 
     # Test if db work
     # Execute a SELECT query to retrieve data from the table
@@ -293,7 +302,6 @@ def search_and_display(cursor):
     # Print the contents of the table
     for row in rows:
         print(f" Name of exercise: {row[0]}, Description: {row[1]}")
-
 
 
 def main():
