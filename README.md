@@ -17,6 +17,7 @@ Columns:
 - Equipment needed - 1 soft-ball, several soft-balls, bean bags, pistarit, tennis balls, stretching band
 - Amount of persons - 1,2,3,4,5,6,7,8 or more
 - Not suitable for - knees, back, breast, hip, neck, ankle
+- Variations - variations of the exercise e.g., backwards, sideways
 - Duratation - x minutes
 - Backup field - just in case I need later another element in the database
  
