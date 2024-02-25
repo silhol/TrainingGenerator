@@ -1,7 +1,7 @@
 # Training Generator
 
-WORK IN PROGRESS
-Database with different exercises
+WORK IN PROGRESS - Feel free to contribute
+Database with different exercises (focus on Taekwondo, but other exercises might fit in nicely)
 sqlite3 Database is used
 Info on how to use it https://www.tutorialspoint.com/sqlite/sqlite_create_database.htm
 
