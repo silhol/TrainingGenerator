@@ -30,7 +30,6 @@ User selects task (after that he is returned to here):
 - Do you want to edit/remove an exercise?
 
 # Crate training plan function (after "want to create a training plan")
-
 User choose from dropdown menu:
 age, type, body part, equipment need, amount of persons, not suitable for
 This is repeated till he says "enough exercises" (age is cached)
