@@ -22,7 +22,7 @@ Columns:
 - Backup field - just in case I need later another element in the database
  
 # Main UI
-User selects task (after that he is returned to here):
+User selects task (after that the user is returned to here):
 - Do you want to add an exercise?
 - Do you want to create a training plan?
 - Modify an existing training plan?
