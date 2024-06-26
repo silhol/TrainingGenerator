@@ -14,7 +14,7 @@ Columns:
 - Skill level - all, kids, normal, rambo, senior, beginners
 - Type of training - warming up, game, strength, stretching, balance, reaction
 - Body part - legs, upper body, shoulder and arms
-- Equipment needed - 1 soft-ball, several soft-balls, bean bags, pistarit, tennis balls, stretching band
+- Equipment needed - soft-ball, several soft-balls, bean bags, pistarit, tennis balls, stretching band, none
 - Amount of persons - 1,2,3,4,5,6,7,8 or more
 - Not suitable for - knees, back, breast, hip, neck, ankle
 - Variations - variations of the exercise e.g., backwards, sideways
