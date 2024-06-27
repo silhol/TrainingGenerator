@@ -15,7 +15,7 @@
 # 8. Amount of persons - 1,2,3,4,5,6,7,8 or more
 # 9. Not suitable for - knees, back, breast, hip, neck, ankle
 # 10. Duration - x minutes
-# 11. Variants - Variants of the exercise (e.g., backwards, sidewards etc.) 
+# 11. Variants - Variants of the exercise (e.g., backwards, sidewards etc.)
 # 12. Comments - optional free text
 # 13. Backup - just in case I need a field more
 
@@ -58,9 +58,10 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
     new_exercise = []  # Initialize a list to store exercise elements
 
     # Create a function to store the sentences in an array
-    def store_exercise_elements(cursor_intern, entry1_int, entry2_int, entry3_int, entry4_int, entry5_int, entry6_int,
-                                entry7_int, entry8_int, entry9_int, entry10_int, entry11_int, entry12_int, 
-                                element13_int, skill_level_details_int, training_type_details_int):
+    def store_exercise_elements(cursor_intern, entry1_int, entry2_int, entry3_int, skill_level_details_int,
+                                training_type_details_int, equipment_material_int,
+                                entry7_int, entry8_int, entry9_int, entry10_int, entry11_int, entry12_int,
+                                element13_int):
 
         element1 = entry1_int.get()  # 1. Exercise Name
         element2 = entry2_int.get()  # 2. Exercise Description
@@ -73,6 +74,9 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         # 5. Type of training - warming up, game, strength, stretching, balance, reaction
         selected_type_of_training = [training_type for training_type, j in training_type_details_int.items() if j.get()]
         element5 = ", ".join(selected_type_of_training)  # Join selected training types
+
+        # 6. Needed Equipment
+
 
         # CHECK BELOW WHICH GET NORMAL TEXT!!
 
@@ -108,8 +112,8 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         # Store exercise elements in the database
         for exercise in new_exercise:
             cursor_intern.execute("INSERT INTO tbl1 (name, description, link, skill_level, training_type, body_part, "
-                                  "equipment, num_persons, not_suitable, duration, variations, comments, backup) VALUES "
-                                  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)", exercise)
+                                  "equipment, num_persons, not_suitable, duration, variations, comments, backup) "
+                                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)", exercise)
 
         conn.commit()  # Commit the changes to the database
 
@@ -148,7 +152,7 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         label5 = tk.Label(root, text="What kind of training is this exercise (select from menu):")
         # 6. Body part - legs, upper body, shoulder and arms
         label6 = tk.Label(root, text="Which body part is trained in this exercise (select from menu):")
-        # 7. Equipment needed - 1 soft-ball, several soft-balls, bean bags, pistarit, tennis balls, stretching band
+        # 7. Equipment needed - soft-ball, several soft-balls, bean bags, pads, tennis balls, stretching band
         label7 = tk.Label(root, text="What kind of equipment do you need (select from menu):")
         # 8. Amount of persons - 1,2,3,4,5,6,7,8 or more
         label8 = tk.Label(root, text="How many persons are needed at least to perform this exercise (select from "
@@ -164,6 +168,8 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         label12 = tk.Label(root, text="Comments:")
         # 13. Backup - just in case I need a field more
         label13 = tk.Label(root, text="Backup:")
+        labels = [label1, label2,label3, label4, label5, label6, label7, label8, label9, label10, label11, label12,
+                  label13]
 
         entry1 = tk.Entry(root)
         entry2 = tk.Entry(root)
@@ -217,14 +223,44 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
             "Other": IntVar()
         }
 
-        for training_type, i in training_type_details.items():
-            checkbox = tk.Checkbutton(root, text=training_type, variable=i)
-            checkbox.pack()
+        label5 = tk.Label(root, text=labels[4])
+        label5.pack()
+        for training_type, var in training_type_details.items():
+            checkbox = tk.Checkbutton(root, text=training_type, variable=var)
+            checkbox.pack(anchor='w')
+        # for training_type, i in training_type_details.items():
+        #    checkbox = tk.Checkbutton(root, text=training_type, variable=i)
+        #    checkbox.pack()
 
         entry5.pack()
 
-        label6.pack()
+        label6.pack()  # Question for equipment needed
+        equipment_material_details = {
+
+            "1-2 Soft Ball": IntVar(),
+            "Soft Ball per person": IntVar(),
+            "Soft Ball per two persons": IntVar(),
+            "Tennis Ball per person": IntVar(),
+            "Tennis Ball per two persons": IntVar(),
+            "Bean Bags": IntVar(),
+            "Stretching Band": IntVar(),
+            "Kicking pads (small)": IntVar(),
+            "Kicking pads (large)": IntVar()
+        }
+
+        # Create and pack the checkboxes
+        for equipment_material, var in equipment_material_details.items():
+            checkbox = tk.Checkbutton(root, text=equipment_material, variable=var)
+            checkbox.pack(anchor='w')
+
+        # Create a label and text entry for "Other" directly under the checkboxes
+        other_label = tk.Label(root, text="Other (insert text):")
+        other_label.pack(anchor='w')
+        other_entry = tk.Entry(root, width=50)
+        other_entry.pack(anchor='w')
+
         entry6.pack()
+
         label7.pack()
         entry7.pack()
         label8.pack()
@@ -241,13 +277,14 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         entry13.pack()
 
         # Create a "Done" button to store the exercise elements
-        done_button = tk.Button(root, text="Done", command=store_exercise_elements(cursor_intern, entry1, entry2,
-                                                                                   entry3, entry4, entry5, entry6,
-                                                                                   entry7, entry8, entry9, entry10,
-                                                                                   entry11, entry12, entry13,
-                                                                                   skill_level_details,
-                                                                                   training_type_details))
-        done_button.pack()
+        done_button = tk.Button(root, text="Done",
+                                command=lambda: store_exercise_elements(cursor_intern, entry1, entry2,
+                                                                        entry3, skill_level_details,
+                                                                        training_type_details,
+                                                                        equipment_material_details,
+                                                                        entry6, entry8, entry9,
+                                                                        entry10, entry11, entry12))
+
 
         # Create a "View Exercises" button to open the pop-up window
         view_button = tk.Button(root, text="View Exercises", command=create_popup_for_viewing_exercise)
@@ -328,3 +365,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
