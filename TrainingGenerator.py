@@ -85,7 +85,7 @@ def insert_new_exercise(cursor):  # this function is for adding new exercises to
         element8 = entry8_int.get()
         element9 = entry9_int.get()
 
-        #####################
+        ##################### then elements below are not properly formated yet
         element10 = entry10_int.get()  # 10. Duration - x minutes
         element11 = entry11_int.get()  # 11. Variations
         element12 = entry12_int.get()  # 12. Comments
