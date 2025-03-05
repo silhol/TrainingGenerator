@@ -6,7 +6,7 @@
 # Database structure:
 # Columns:
 # 1. Exercise name - The exercise should have an easy to identify name
-# 2. Description text - should describe the exercise
+# 2. Description text - should describe the exercise 
 # 3. Description link - Link to picture or video
 # 4. Skill level - all, kids, normal, rambo, senior, beginners
 # 5. Type of training - warming up, game, strength, stretching, balance, reaction
@@ -18,6 +18,7 @@
 # 11. Variants - Variants of the exercise (e.g., backwards, sidewards etc.)
 # 12. Comments - optional free text
 # 13. Backup - just in case I need a field more
+# Not all fields are mandatory to fill in
 
 # Main UI
 # User selects task (after that he is returned to here):
